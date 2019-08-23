@@ -75,12 +75,7 @@ app.use('/', index);
 app.use('/login',login);
 
 
-//定义一个接口，返回token给客户端
-app.get('/getUserInfo', function(req, res) {
-  res.json({
-      token: token
-  })
-})
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
