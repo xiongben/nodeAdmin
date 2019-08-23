@@ -1,19 +1,41 @@
 var express = require('express');
+var jwt = require("express-jwt");
 var router = express.Router();
 
 var userDAO = require('../dao/useDAO');
 var result = require('../model/result');
 const querystring = require('querystring');
+var token = require('./../token');
 
 /* GET home page. */
 // router.get('/', function(req, res, next) {
 //   res.render('xb', { title: 'welcome to here' });
 // });
 
-router.get('/:id', function(req, res) {
-  var id = req.params.id;
+router.get('/', function(req, res) {
+  // console.log(req.query);
+  var id = req.query.id;
   userDAO.getById(id, function (user) {
-      res.json(result.createResult(true, user));
+      if(!!user){
+        user.token = token;
+        res.json(result.createResult(true, user));
+      }else{
+        var mess = "丢！没这个人";
+        res.json(result.createResult(true, user,mess));
+      }
+  });
+});
+
+router.get('/testtoken', function(req, res) {
+  // console.log(req.query);
+  var id = 1;
+  userDAO.getById(id, function (user) {
+      if(!!user){
+        res.json(result.createResult(true, user));
+      }else{
+        var mess = "丢！没这个人";
+        res.json(result.createResult(true, user,mess));
+      }
   });
 });
 
