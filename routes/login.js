@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
         user.token = token;
         res.json(result.createResult(true, user));
       }else{
-        var mess = "丢！没这个人";
+        var mess = "丢！没这个人!";
         res.json(result.createResult(true, user,mess));
       }
   });
